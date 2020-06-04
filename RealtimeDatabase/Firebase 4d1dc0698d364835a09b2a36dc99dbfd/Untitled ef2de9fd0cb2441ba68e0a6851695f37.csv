@@ -1,0 +1,6 @@
+﻿메소드,용도
+queryLimitedToFirst,정렬된 결과 목록에서 맨 처음부터 반환할 최대 항목 개수를 설정합니다.
+queryLimitedToLast,정렬된 결과 목록에서 맨 끝부터 반환할 최대 항목 개수를 설정합니다.
+queryStartingAtValue,선택한 정렬 기준 메소드에 따라 지정된 키 또는 값보다 크거나 같은 항목을 반환합니다.
+queryEndingAtValue,선택한 정렬 기준 메소드에 따라 지정된 키 또는 값보다 작거나 같은 항목을 반환합니다.
+queryEqualToValue,선택한 정렬 기준 메소드에 따라 지정된 키 또는 값과 동일한 항목을 반환합니다.
