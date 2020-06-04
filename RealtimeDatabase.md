@@ -115,19 +115,15 @@
 
         ```json
         {
-          // This is a poorly nested data architecture, because iterating the children
-          // of the "chats" node to get a list of conversation titles requires
-          // potentially downloading hundreds of megabytes of messages
           "chats": {
             "one": {
               "title": "Historical Tech Pioneers",
               "messages": {
                 "m1": { "sender": "ghopper", "message": "Relay malfunction found. Cause: moth." },
-                "m2": { ... },
-                // a very long list of messages
+                "m2": { },
               }
             },
-            "two": { ... }
+            "two": {  }
           }
         }
         ```
@@ -136,8 +132,6 @@
 
     ```json
     {
-      // Chats contains only meta info about each conversation
-      // stored under the chats's unique ID
       "chats": {
         "one": {
           "title": "Historical Tech Pioneers",
@@ -148,22 +142,16 @@
         "three": {}
       },
 
-      // Conversation members are easily accessible
-      // and stored by chat conversation ID
       "members": {
-        // we'll talk about indices like this below
         "one": {
           "ghopper": true,
           "alovelace": true,
           "eclarke": true
         },
         "two": {},
-        "three": { }
+        "three": {}
       },
 
-      // Messages are separate from data we may want to iterate quickly
-      // but still easily paginated and queried, and organized by chat
-      // conversation ID
       "messages": {
         "one": {
           "m1": {
@@ -171,11 +159,11 @@
             "message": "The relay seems to be malfunctioning.",
             "timestamp": 1459361875337
           },
-          "m2": { ... },
-          "m3": { ... }
+          "m2": {},
+          "m3": {}
         },
-        "two": { ... },
-        "three": { ... }
+        "two": {},
+        "three": {}
       }
     }
     ```
@@ -195,13 +183,13 @@
 - 기본 쓰기 작업
     - setValue를 사용해 지정된 참조에 데이터를 저장하고 기존 경로의 모든 데이터를 대체할 수 있다.
 
-    ```json
+    ```swift
     self.ref.child("users").child(user!.uid).setValue(["username": username])
     ```
 
     - 위 처럼 새로운 유저를 추가할 수 있다.
 
-    ```json
+    ```swift
     self.ref.child("users/(user.uid)/username").setValue(username)
     ```
 
@@ -211,7 +199,7 @@
 - 특정 필드 업데이트
     - 다른 하위 노드를 덮어쓰지 않고 특정 하위노드를 업데이트하려면 updateChildValues를 사용
 
-    ```json
+    ```swift
     let key = ref.child("posts").childByAutoId().key
     let post = ["uid": userID,
                 "author": username,
@@ -250,14 +238,13 @@
 - 데이터 한번 읽기
     - 한 번만 호출되고 즉시 삭제되는 콜백이 필요할 수 있다.
 
-    ```json
+    ```swift
     let userID = FIRAuth.auth()?.currentUser?.uid
     ref.child("users").child(userID!).observeSingleEventOfType(.Value, withBlock: { (snapshot) in
-      // Get user value
+    
       let username = snapshot.value!["username"] as! String
       let user = User.init(username: username)
 
-      // ...
       }) { (error) in
         print(error.localizedDescription)
     }
