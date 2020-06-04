@@ -1,6 +1,0 @@
-﻿이벤트 유형,일반적인 용도
-FIRDataEventTypeValue,경로의 전체 내용에 대한 변경을 읽고 수신 대기합니다.
-FIRDataEventTypeChildAdded,항목 목록을 검색하거나 항목 목록에 대한 추가를 수신 대기합니다.
-FIRDataEventTypeChildChanged,목록의 항목에 대한 변경을 수신 대기합니다. 
-FIRDataEventTypeChildRemoved,목록의 항목 삭제를 수신 대기합니다. 
-FIRDataEventTypeChildMoved,순서 있는 목록의 항목 순서 변경을 수신 대기합니다. 

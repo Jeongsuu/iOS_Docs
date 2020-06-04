@@ -1,5 +1,0 @@
-﻿Name,용도
-setValue,정의된 경로에 데이터를 쓰거나 대체(데이터를 저장할 때)
-childByAutoId,"데이터 목록에 추가, childByAutoId를 호출할 때마다 고유식별자로 사용할 수 있는 고유키 생성(고유값 생성)"
-updateChildValues,정의된 경로에서 일부 키 업데이트(수정 혹은 저장할 때)
-runTransactionBlock,동시 업데이트로 인해 손상될 수 있는 데이터 업데이트

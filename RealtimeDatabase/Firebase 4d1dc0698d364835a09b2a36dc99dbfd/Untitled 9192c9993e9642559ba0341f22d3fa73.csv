@@ -1,4 +1,0 @@
-﻿메소드,용도
-queryOrderedByKey,하위 키에 따라 결과를 정렬합니다.
-queryOrderedByValue,하위 값에 따라 결과를 정렬합니다.
-queryOrderedByChild,지정된 하위 키의 값에 따라 결과를 정렬합니다.
