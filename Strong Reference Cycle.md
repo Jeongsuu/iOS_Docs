@@ -51,6 +51,7 @@ rentedCar = nil
 person변수에 nil을 할당하여 소유권을 포기하고 그 후 rentedCar 변수에 nil을 할당하여 소유권을 포기해보자.
 
 ![https://mermaid.ink/svg/eyJjb2RlIjoiZ3JhcGggVERcblx0XG5cdFxuXHRzdWJncmFwaCBQZXJzb25JbnN0YW5jZVxuIFx0UElbMV1cblx0IGNhcltjYXJdXG5cdGVuZFxuXG5cblx0XG5cdHN1YmdyYXBoIENhckluc3RhbmNlXG5cdGxlc3NlZVxuXHRDSVsxXVxuXHRlbmRcblxuXHRsZXNzZWUtLT586rCV7ZWc7LC47KGwICsxfFBJXG5cdGNhci0tPnzqsJXtlZzssLjsobAgKzF8Q0kiLCJtZXJtYWlkIjp7InRoZW1lIjoiZGVmYXVsdCJ9LCJ1cGRhdGVFZGl0b3IiOmZhbHNlfQ](https://mermaid.ink/svg/eyJjb2RlIjoiZ3JhcGggVERcblx0XG5cdFxuXHRzdWJncmFwaCBQZXJzb25JbnN0YW5jZVxuIFx0UElbMV1cblx0IGNhcltjYXJdXG5cdGVuZFxuXG5cblx0XG5cdHN1YmdyYXBoIENhckluc3RhbmNlXG5cdGxlc3NlZVxuXHRDSVsxXVxuXHRlbmRcblxuXHRsZXNzZWUtLT586rCV7ZWc7LC47KGwICsxfFBJXG5cdGNhci0tPnzqsJXtlZzssLjsobAgKzF8Q0kiLCJtZXJtYWlkIjp7InRoZW1lIjoiZGVmYXVsdCJ9LCJ1cGRhdGVFZGl0b3IiOmZhbHNlfQ)
+  
 소유권을 포기했지만 참조카운트가 1이상이기 때문에 메모리에서 사라지지 않는다. 두 인스턴스의 속성이 서로를 소유하고 있기 때문이다. `nil`로 인해 두 인스턴스에 접근할 방법이 없기때문에 메모리를 해지할 방법이 없다.
 
 
@@ -60,7 +61,7 @@ person변수에 nil을 할당하여 소유권을 포기하고 그 후 rentedCar 
 
 # 🐇 Weak Reference
 강한 참조와 달리 약한 참조는 인스턴스를 참조하지만 소유하진 않으므로 참조 카운트가 증가하지 않는다.
-대상 인스턴스를 참조하고 있는 중 언제든 메모리에서 사라질 수 있다. 따라서 소유자에 비해서 짧은 생명주기를 가진 인스턴스를 참조할 때 사용한다.
+대상 인스턴스를 참조하고 있는 중 언제든 메모리에서 사라질 수 있다. 따라서 **소유자에 비해서 짧은 생명주기를 가진 인스턴스를 참조할 때** 사용한다.
 
 ![https://mermaid.ink/svg/eyJjb2RlIjoiZ3JhcGggTFJcblx0QVtSZWZlcnJlcl0gLS4tPnxXZWFrIFJlZmVyZW5jZXwgQltJbnN0YW5jZV1cblxuXHQiLCJtZXJtYWlkIjp7InRoZW1lIjoiZGVmYXVsdCJ9LCJ1cGRhdGVFZGl0b3IiOmZhbHNlfQ](https://mermaid.ink/svg/eyJjb2RlIjoiZ3JhcGggTFJcblx0QVtSZWZlcnJlcl0gLS4tPnxXZWFrIFJlZmVyZW5jZXwgQltJbnN0YW5jZV1cblxuXHQiLCJtZXJtYWlkIjp7InRoZW1lIjoiZGVmYXVsdCJ9LCJ1cGRhdGVFZGl0b3IiOmZhbHNlfQ)
 
@@ -70,7 +71,7 @@ person변수에 nil을 할당하여 소유권을 포기하고 그 후 rentedCar 
 weak var name: Type?
 ```
 
-약한 참조는 항상 옵셔널 형식으로 선언한다. 그리고 `var` 키워드 앞에 `weak` 키워드를 선언한다.  참조하고 있는 인스턴스가 해제되면 자동으로 nil로 초기화 된다. 
+약한 참조는 항상 옵셔널 형식으로 선언한다. 그리고 `var` 키워드 앞에 `weak` 키워드를 선언한다.  참조하고 있는 인스턴스가 해제되면 [ARC](https://ahyeonlog.tistory.com/2) 는 자동으로 nil로 초기화 한다.
 ```
 class Person {
 	var name = "Ahyeon"
@@ -108,9 +109,10 @@ person = nil
 
 # 🤔 Unowned Reference
 
-비소유 참조도 약한 참조와 같은 방식으로 속성을 참조한다. 하지만 옵셔널이 아니라 비옵셔널로 선언한다.
-비옵셔널로 선언해야할 때나, 인스턴스의 생명주기가 소유자와 같거나 더 긴 경우에 사용한다.
-**Syntax**
+비소유 참조도 약한 참조와 같은 방식으로 속성을 참조한다. 하지만 옵셔널이 아니라 비옵셔널로 선언한다. [ARC](https://ahyeonlog.tistory.com/2)는 비소유 참조를 nil로 설정하지 않는다. 따라서 `unowned` 는 참조하는 객체의 메모리가 해제된 상태에서 접근하면 bad access에러가 발생한다. 
+**비옵셔널로 선언해야할 때나, 인스턴스의 생명주기가 소유자와 같거나 더 긴 경우에 사용한다.  **  
+  
+**Syntax**  
 ```
 unowned var name: Type
 ```
